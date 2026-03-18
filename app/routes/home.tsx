@@ -1,13 +1,17 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { HeaderSection } from "../sections/HeaderSection/HeaderSection";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Kotlin Programming Language" },
+    { name: "description", content: "A modern programming language that makes developers happier" },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return (
+    <div className="overview-page">
+      <HeaderSection />
+    </div>
+  );
 }
