@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Button from "@rescui/button";
 import { useTextStyles } from "@rescui/typography";
 import { ThemeProvider } from "@rescui/ui-contexts";
@@ -6,6 +6,7 @@ import { TabList, Tab, TabSeparator } from "@rescui/tab-list";
 import cn from "classnames";
 import { Section, Container } from "../../components/layout/layout";
 import "./WhyKotlinSection.css";
+import "highlight.js/styles/github.css";
 
 import multiplatformImg from "../../assets/images/index/multiplatform.svg";
 
@@ -185,6 +186,30 @@ function YouTubeEmbed({ id }: { id: string }) {
 function ProgrammingLanguage() {
   const textCn = useTextStyles();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [highlightedCode, setHighlightedCode] = useState<string | null>(null);
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    isMounted.current = true;
+    import("highlight.js/lib/core").then(({ default: hljs }) => {
+      import("highlight.js/lib/languages/kotlin").then(({ default: kotlin }) => {
+        if (!hljs.getLanguage("kotlin")) {
+          hljs.registerLanguage("kotlin", kotlin);
+        }
+        if (isMounted.current) {
+          const el = document.createElement("code");
+          el.className = "language-kotlin";
+          el.textContent = tabs[activeIndex].code;
+          hljs.highlightElement(el);
+          setHighlightedCode(el.innerHTML);
+        }
+      });
+    });
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, [activeIndex]);
 
   return (
     <div className="kto-grid kto-grid-gap-32 kto-offset-top-96 kto-offset-top-md-48">
@@ -210,7 +235,14 @@ function ProgrammingLanguage() {
         </TabList>
         <TabSeparator />
         <pre className="programming-language__code kto-offset-top-16">
-          <code>{tabs[activeIndex].code}</code>
+          {highlightedCode != null ? (
+            <code
+              className="hljs"
+              dangerouslySetInnerHTML={{ __html: highlightedCode }}
+            />
+          ) : (
+            <code>{tabs[activeIndex].code}</code>
+          )}
         </pre>
       </div>
     </div>
