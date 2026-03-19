@@ -1,0 +1,29 @@
+.usage-section {
+    background-color: #fff;
+    padding-top: 96px;
+}
+
+.usage-section__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 192px;
+}
+
+@media (max-width: 640px) {
+    .usage-section__card {
+        height: 160px;
+    }
+}
+
+.usage-section__logo {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    object-position: left;
+}
+
+.usage-section__logo_spring {
+    padding: 10px 0;
+    box-sizing: border-box;
+}

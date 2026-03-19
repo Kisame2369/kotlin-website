@@ -4,6 +4,14 @@
   padding: 0;
 }
 
+:root {
+  --ktl-color-primary-light-theme: #7f52ff;
+  --ktl-font-family-inter: 'Inter', sans-serif;
+  --rs-color-primary-light-theme: #7f52ff;
+  --rs-color-primary-t-dim-light-theme: rgba(127, 82, 255, 0.8);
+  --rs-font-family-ui: 'Inter', sans-serif;
+}
+
 html,
 body {
   height: 100%;

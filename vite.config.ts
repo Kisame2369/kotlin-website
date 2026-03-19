@@ -5,6 +5,9 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+  build: {
+    cssCodeSplit: false,
+  },
   resolve: {
     alias: {
       "@rescui/card": "@rescui/card/lib/index.js",
